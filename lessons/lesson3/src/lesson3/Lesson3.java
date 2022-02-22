@@ -10,7 +10,7 @@ public class Lesson3 {
         String[] strArray = {"cat", "dog", "rabbit"};
         Integer[] intArray = {10,20, 30, 40, 50};
         Task1 task = new Task1();
-        System.out.println(Arrays.toString(task.swapsPlacesArray(strArray,0,8)));
+        System.out.println(Arrays.toString(task.swapsPlacesArray(strArray,0,1)));
         System.out.println(Arrays.toString(task.swapsPlacesArray(intArray,4,0)));
 
 //  Задача№2
