@@ -10,8 +10,8 @@ public class Lesson3 {
         String[] strArray = {"cat", "dog", "rabbit"};
         Integer[] intArray = {10,20, 30, 40, 50};
         Task1 task = new Task1();
-        System.out.println(Arrays.toString(task.swapsPlacesArray(strArray,0,8)));
-        System.out.println(Arrays.toString(task.swapsPlacesArray(intArray,4,0)));
+        System.out.println(Arrays.toString(task.swapsPlacesArray(strArray,2,1)));
+        System.out.println(Arrays.toString(task.swapsPlacesArray(intArray,2,0)));
 
 //  Задача№2
         Apple[] apples = new Apple[4];
@@ -55,6 +55,7 @@ public class Lesson3 {
         System.out.println(orangeBox);
         System.out.println(orangeBox1);
 
+        System.out.println(appleBox);
         appleBox.addFruit(oneApple); // Добавляем фрукт в коробку
         System.out.println(appleBox);
     }
