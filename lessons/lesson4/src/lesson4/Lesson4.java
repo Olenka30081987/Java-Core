@@ -2,7 +2,7 @@ package lesson4;
 
 import java.util.*;
 
-public class Main {
+public class Lesson4 {
 
     public static void main(String[] args) {
         // Задача № 1
