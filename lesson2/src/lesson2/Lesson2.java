@@ -11,9 +11,9 @@ public class Lesson2 {
 
         String[][] arr2 = {
                 {"1", "4", "5", "10"},
-                {"1", "@", "5", "10"},
                 {"1", "4", "5", "10"},
-                {"1", "4", "Z", "10"},
+                {"1", "4", "@", "10"},
+                {"1", "4", "5", "10"},
         };
 
         String[][] arr3 = {
@@ -22,16 +22,13 @@ public class Lesson2 {
                 {"1", "4", "5", "10"},
                 {"1", "4", "5", "10"},
         };
-
         testArray(arr1);
         testArray(arr2);
         testArray(arr3);
-
     }
-
-
+    
     static void array(String[][] arr) throws MyArraySizeException, MyArrayDataException {
-        if(arr.length !=4 && arr[0].length !=4 ) {
+        if(arr.length !=4 || arr[0].length !=4 ) {
             throw new MyArraySizeException();
         }
         int sum = 0;
@@ -42,22 +39,20 @@ public class Lesson2 {
                     sum += item;
                 }
                 catch (Exception e){
-                    throw new MyArrayDataException("it's not a number: " + arr[i][j]);
+                    throw new MyArrayDataException("Ошибка в ячейке: " + i+"."+j);
+                }
             }
         }
+        System.out.println("Сумма элементов массива " + sum);
     }
-        System.out.println(sum);
-}
 
-static void  testArray(String[][] arr) {
-    try {
-        array(arr);
-    } catch (MyArraySizeException e) {
-        e.printStackTrace();
-    } catch (MyArrayDataException e) {
-        System.out.println(e.getMessage());
-
+    static void  testArray(String[][] arr) {
+        try {
+            array(arr);
+        } catch (MyArraySizeException e) {
+            e.printStackTrace();
+        } catch (MyArrayDataException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
-}
-
