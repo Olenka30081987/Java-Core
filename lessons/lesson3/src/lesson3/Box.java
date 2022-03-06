@@ -29,7 +29,7 @@ public class Box <T extends Fruit> {
         Arrays.fill( this.fruits, null);
    }
 
-   public void addFruit(T fruit[]) {
+   public void addFruit(Fruit fruit[]) {
        this.fruits = Arrays.copyOf(this.fruits, this.fruits.length + fruit.length);
        System.arraycopy(fruit, 0, this.fruits, this.fruits.length - fruit.length, fruit.length);
    }
