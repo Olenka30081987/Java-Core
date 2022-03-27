@@ -1,6 +1,7 @@
 package lesson7;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -32,6 +33,14 @@ public class UserInterface {
             try {
                 notifyController(result);
             } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("Введите дату в формате YYYY-MM-DD");
+            String data = scanner.nextLine();
+            try {
+                controller.getDataFromDb(data);
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
 

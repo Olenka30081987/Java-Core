@@ -4,18 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Metric {
     @JsonProperty("Value")
-    private String value;
+    private Double value;
 
     @JsonProperty("Unit")
     private String unit;
 
     @JsonProperty("Value")
-    public String getValue() {
+    public Double getValue() {
         return value;
     }
 
     @JsonProperty("Value")
-    public void setValue(String value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 

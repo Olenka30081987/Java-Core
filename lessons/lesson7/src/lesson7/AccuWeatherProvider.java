@@ -9,13 +9,14 @@ import okhttp3.Response;
 import java.io.*;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import java.io.IOException;
+import java.sql.*;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import java.io.IOException;
+
 
 public class AccuWeatherProvider implements WeatherProvider {
 
@@ -30,10 +31,12 @@ public class AccuWeatherProvider implements WeatherProvider {
     private final OkHttpClient client = new OkHttpClient();
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+
     @Override
-    public void getWeather(Periods periods) throws IOException {
+    public ArrayList <WeatherData> getWeather(Periods periods) throws IOException {
         City city = detectCityKey();
         String cityKey = city.getCityKey();
+        ArrayList <WeatherData> weatherDataItems = new ArrayList <WeatherData>();
         if (periods.equals(Periods.NOW)) {
             HttpUrl url = new HttpUrl.Builder()
                     .scheme("http")
@@ -56,8 +59,13 @@ public class AccuWeatherProvider implements WeatherProvider {
             StringReader reader = new StringReader(body.substring(1, body.length() - 1));
             WeatherResponse weatherResponse = objectMapper.readValue(reader, WeatherResponse.class);
             String date = weatherResponse.getDate().substring(0, 10);
-            System.out.println("В городе " + city.getCityName() + " на дату " + date + " сегодня " + weatherResponse.getWeatherText() + " температура " + weatherResponse.getTemperature().getMetric().getValue() + weatherResponse.getTemperature().getMetric().getUnit());
-
+            System.out.println("В городе " + city.getCityName() +
+                    " на дату " + date + " сегодня "
+                    + weatherResponse.getWeatherText() + " температура "
+                    + weatherResponse.getTemperature().getMetric().getValue()
+                    + weatherResponse.getTemperature().getMetric().getUnit());
+            WeatherData weatherData = new WeatherData(city.getCityName(), date, weatherResponse.getWeatherText(), weatherResponse.getTemperature().getMetric().getValue());
+            weatherDataItems.add(weatherData);
         } else if (periods.equals(Periods.FIVE_DAYS)) {
             HttpUrl url = new HttpUrl.Builder()
                     .scheme("http")
@@ -93,8 +101,12 @@ public class AccuWeatherProvider implements WeatherProvider {
                         + item.getTemperature().getMinimum().getUnit()
                         + " до " + item.getTemperature().getMaximum().getValue()
                         + item.getTemperature().getMaximum().getUnit());
+
+                WeatherData weatherData = new WeatherData(city.getCityName(), date, precipitationTypeDay == null ? "без осадков" : precipitationTypeDay, item.getTemperature().getMinimum().getValue());
+                weatherDataItems.add(weatherData);
             }
         }
+        return weatherDataItems;
     }
 
     public City detectCityKey() throws IOException {
@@ -136,4 +148,5 @@ public class AccuWeatherProvider implements WeatherProvider {
 
         return city;
     }
+
 }
